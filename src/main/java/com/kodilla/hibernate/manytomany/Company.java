@@ -5,6 +5,17 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(
+        name = "Company.retrieve",
+        query = "FROM Company WHERE company_name = :COMPANY_NAME"
+)
+
+@NamedNativeQuery(
+        name = "Company.retrieveNative",
+        query = "SELECT * FROM companies WHERE company_name = :COMPANY_NAME",
+        resultClass = Company.class
+)
+
 @Entity
 @Table(name = "companies")
 public class Company {

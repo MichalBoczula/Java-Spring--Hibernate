@@ -6,6 +6,29 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Task.retrieveLongTasks",
+                query = "FROM Task WHERE duration > 10"
+        ),
+        @NamedQuery(
+                name = "Task.retrieveShortTasks",
+                query = "FROM Task WHERE duration <= 10"
+        ),
+        @NamedQuery(
+                name = "Task.retrieveTasksWithDurationLongerThen",
+                query = "FROM Task WHERE duration > :duration"
+        ),
+//        @NamedQuery(
+//                name = "Task.a",
+//                query = "FROM Task WHERE description = \'test\'"
+//        )
+})
+//@NamedNativeQuery(
+//        name = "Task.retrieveTasksWithThisDuration",
+//        query = "SELECT * FROM Task WHERE SUBSTRING (description, 1, 3) = :"
+//)
+
 @Entity
 @Table(name = "tasks")
 public final class Task {
@@ -39,12 +62,12 @@ public final class Task {
     }
 
     @NotNull
-    @Column(name="created")
+    @Column(name = "created")
     public Date getCreated() {
         return created;
     }
 
-    @Column(name="duration")
+    @Column(name = "duration")
     public int getDuration() {
         return duration;
     }
@@ -56,7 +79,7 @@ public final class Task {
     }
 
     @ManyToOne
-    @JoinColumn( name = "tasks_list_id")
+    @JoinColumn(name = "tasks_list_id")
     public TaskList getTaskList() {
         return taskList;
     }
