@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "tasks_list")
 public class TaskList {
-    private int id;
+    private long id;
     private String listName;
     private String description;
     private List<Task> tasks = new ArrayList<>();
@@ -27,7 +27,7 @@ public class TaskList {
     @GeneratedValue
     @NotNull
     @Column(name = "id", unique = true)
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -51,7 +51,7 @@ public class TaskList {
         return tasks;
     }
 
-    private void setId(int id) {
+    private void setId(long id) {
         this.id = id;
     }
 

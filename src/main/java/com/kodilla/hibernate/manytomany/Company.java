@@ -16,6 +16,11 @@ import java.util.List;
         resultClass = Company.class
 )
 
+//@NamedNativeQuery(
+//        name = "Company.retrieveTasksWithThisDuration",
+//        query = "SELECT * FROM companies WHERE SUBSTRING (description, 1, 3) = :"
+//)
+
 @Entity
 @Table(name = "companies")
 public class Company {

@@ -19,15 +19,8 @@ import java.util.Date;
                 name = "Task.retrieveTasksWithDurationLongerThen",
                 query = "FROM Task WHERE duration > :duration"
         ),
-//        @NamedQuery(
-//                name = "Task.a",
-//                query = "FROM Task WHERE description = \'test\'"
-//        )
 })
-//@NamedNativeQuery(
-//        name = "Task.retrieveTasksWithThisDuration",
-//        query = "SELECT * FROM Task WHERE SUBSTRING (description, 1, 3) = :"
-//)
+
 
 @Entity
 @Table(name = "tasks")
