@@ -7,15 +7,32 @@ import java.util.List;
 
 @NamedQuery(
         name = "Employee.retrieveEmployeeWithThisLastName",
-        query = "FROM Employee WHERE last_name = :LAST_NAME"
+        query = "FROM Employee WHERE lastname = :LAST_NAME"
 )
 
 @Entity
 @Table(name = "employees")
 public class Employee {
-    private int id;
+    @Id
+    @GeneratedValue
+    @NotNull
+    @Column(name = "employee_id", unique = true)
+    private long id;
+
+    @NotNull
+    @Column(name = "first_name")
     private String firstname;
+
+    @NotNull
+    @Column(name = "last_name")
     private String lastname;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "join_company_employee",
+            joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "company_id", referencedColumnName = "company_id")}
+    )
     private List<Company> companies = new ArrayList<>();
 
     public Employee() {
@@ -26,50 +43,13 @@ public class Employee {
         this.lastname = lastname;
     }
 
-    @Id
-    @GeneratedValue
-    @NotNull
-    @Column(name = "employee_id", unique = true)
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    @NotNull
-    @Column(name = "first_name")
-    public String getFirstname() {
-        return firstname;
-    }
-
-    @NotNull
-    @Column(name = "last_name")
-    public String getLastname() {
-        return lastname;
-    }
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "join_company_employee",
-            joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "employee_id")},
-            inverseJoinColumns = {@JoinColumn(name = "company_id", referencedColumnName = "company_id")}
-    )
     public List<Company> getCompanies() {
         return companies;
     }
 
-    private void setId(int id) {
-        this.id = id;
-    }
-
-    private void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    private void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    private void setCompanies(List<Company> companies) {
-        this.companies = companies;
-    }
 }
 
