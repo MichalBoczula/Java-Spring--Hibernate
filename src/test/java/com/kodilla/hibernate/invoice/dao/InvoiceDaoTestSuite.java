@@ -19,29 +19,31 @@ import static org.junit.Assert.assertEquals;
 public class InvoiceDaoTestSuite {
     @Autowired
     private ProductDao productDao;
+
     @Autowired
     private ItemDao itemDao;
+
     @Autowired
     private InvoiceDao invoiceDao;
 
     @Test
     public void testInvoiceDaoSave() {
         //Given
-        final Product wood = new Product("wood");
-        final Item chair = new Item("Chair", new BigDecimal(100),
+        final Product product = new Product("wood");
+        final Item item = new Item("chair", new BigDecimal(100),
                 10, new BigDecimal(1000));
         final Invoice testInvoice = new Invoice("123456");
 
         //When
-        productDao.save(wood);
-        wood.getItems().add(chair);
-        testInvoice.getItems().add(chair);
+        productDao.save(product);
+        product.getItems().add(item);
+        testInvoice.getItems().add(item);
         invoiceDao.save(testInvoice);
-        chair.setInvoice(testInvoice);
-        chair.setProduct(wood);
-        itemDao.save(chair);
+        item.setInvoice(testInvoice);
+        item.setProduct(product);
+        itemDao.save(item);
 
-        final List<Item> itemTestListInProduct = wood.getItems();
+        final List<Item> itemTestListInProduct = product.getItems();
         final List<Item> itemTestListInInvoice = testInvoice.getItems();
 
         //Then
@@ -52,8 +54,8 @@ public class InvoiceDaoTestSuite {
         assertEquals(1, itemTestListInInvoice.size());
 
         //CleanUp
-        itemDao.delete(chair.getId());
+        itemDao.delete(item.getId());
         invoiceDao.delete(testInvoice.getId());
-        productDao.delete(wood.getId());
+        productDao.delete(product.getId());
     }
 }

@@ -22,15 +22,15 @@ public class ItemDaoTestSuite {
     @Test
     public void testSomething(){
         //Given
-        final Item chairs = new Item("chair", new BigDecimal(115),
-                10, new BigDecimal(1150));
+        final Item item = new Item("chair", new BigDecimal(1),
+                10, new BigDecimal(1));
 
         //When
-        itemDao.save(chairs);
+        itemDao.save(item);
 
         //Then
         assertEquals(1, itemDao.count());
         //CleanUp
-        itemDao.delete(chairs);
+        itemDao.delete(item);
     }
 }
